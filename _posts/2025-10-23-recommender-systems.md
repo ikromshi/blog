@@ -322,7 +322,7 @@ To compute these vectors, we’ll use Deep Learning.
 
 Below is a possible architecture for computing the vectors for movies and users given their features/preferences:
 
-![Screenshot 2025-10-21 at 16.40.48.png](Recommender%20Systems%20293a964f3987803394b2d2096e2d6112/Screenshot_2025-10-21_at_16.40.48.png)
+![nn-rec-system](/assets/images/nn-rec-system.png)
 
 To judge the performance of the neural nets, we use the following cost function:
 
