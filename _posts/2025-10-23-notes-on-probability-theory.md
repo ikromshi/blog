@@ -1,8 +1,8 @@
 ---
 layout: default
-title: "My Notes on Probability Theory"
+title: "Notes on Probability Theory"
 date:   2025-10-23
-excerpt: Discrete/continuous random variables and distributions, conditional probability and independence, expectation, limits, random walks.
+excerpt: "My college notes on probability theory, including discrete/continuous random variables and distributions, conditional probability and independence, expectation, limits, random walks and more. Most of the notes are from the book 'Probability with Applications and R' by Wagaman and Dobrow. If you have the chance, I highly recommend reading the book or going through its problems."
 ---
 
 # Probability Theory
@@ -139,17 +139,13 @@ excerpt: Discrete/continuous random variables and distributions, conditional pro
     
     | Distribution | Parameters | Probability Mass Function | Expectation | Variance |
     | --- | --- | --- | --- | --- |
-    | Bernoulli | $p$ | $P(X=k)=
-    \begin{cases}
-    p, \; & k=1 \\
-    1-p & k=0
-    \end{cases}$ | $p$ | $p(1-p)$ |
-    | Binomial | $n,p$ | $P(X=k)=
-    \binom{n}{k}p^k(1-p)^{n-k}, \;k=0, 1, \dots$ | $np$ | $np(1-p)$ |
+    | Bernoulli | $p$ | $P(X=k)= \begin{cases} p, \; & k=1 \\ 1-p & k=0 \end{cases}$ | $p$ | $p(1-p)$ |
+    | Binomial | $n,p$ | $P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}, \;k=0, 1, \dots$ | $np$ | $np(1-p)$ |
     | Poisson | $\lambda$ | $P(X=k)=\frac{e^{-\lambda} \lambda^k}{k!}, \; k=0,1,\dots$  | $\lambda$ | $\lambda$ |
     | Uniform |  | $P(X=x_k)=\frac{1}{n}, \; k=1,\dots,n$ | $(n+1)/2$ | $(n^2-1)/12$ |
     | Indicator Variable | $p$ |  | $P(A)$ | $P(A)P(A^C)$ |
     | Geometric | $p$ | $(1-p)^{k-1}p$ | $1/p$ | $(1-p)/p^2$ |
+
 - Expectation: If $X$ is a discrete random variable that takes values in a set $S$, its expectation, $E[X]$, is defined as:
     
     $$
