@@ -4,6 +4,7 @@ title: About
 permalink: /about/
 ---
 
-Hi - my name is Ikrom, and I currently work as a Machine Learning Engineer.
+Hi, my name is Ikrom, and I'm a Machine Learning Engineer.
 
-I've taken on a new hobby in writing blog posts about ML, software development, and anything else I might find interestin, hence the website.
+I like working on Computer Vision and Recommender Systems projects, but I've also taken on a new hobby in writing blog posts about ML, Software Development, and pretty much anything else I might find interesting. 
+Hence the website.
