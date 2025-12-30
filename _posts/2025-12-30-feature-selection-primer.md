@@ -2,7 +2,7 @@
 layout: default
 title: "Feature Selection: A Primer"
 date:   2025-12-30
-excerpt: "My take on feature selection"
+excerpt: "My shot at explaining the statistical intuition behind the most common filter methods in Data Science and ML."
 ---
 
 
@@ -101,7 +101,7 @@ The properties of correlation are as follows:
 1. $-1 \leq Corr(X,Y) \leq 1$
 2. If $Y=aX+b$ is a linear function of $X$ for constants $a$ and $b$, then $Corr(X,Y)= \pm1$, depending on the sign of $a$.
 
-The first property says the correlation coefficient is always between $-1$ and $1$ (see this section if you’re interested in a proof). If it is $-1$ or is close to it, that means there is a strong negative linear association between the two variables; if it’s around $1$, the relationship is still strong but positive. As the coefficient approaches $0$, the association between the variables also diminishes.
+The first property says the correlation coefficient is always between $-1$ and $1$ (see [this section](#c--the-range-of-pearsons-r) if you’re interested in a proof). If it is $-1$ or is close to it, that means there is a strong negative linear association between the two variables; if it’s around $1$, the relationship is still strong but positive. As the coefficient approaches $0$, the association between the variables also diminishes.
 
 The second property states that when the correlation coefficient of two variables $X$ and $Y$  is exactly $1$ or $-1$, then we can express one variable as a perfect linear function of the other with no random noise whatsoever, meaning the two variables are perfectly correlated.
 
