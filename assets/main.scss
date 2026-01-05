@@ -6,7 +6,12 @@
 .site-header {
     background-color: #2f6299;
 }
-
+.site-header a:hover {
+    color: #ffffff;
+}
+.site-header a:visited {
+    color: #ffffff;
+}
 .site-title, .site-title:visited {
     color: #ffffff;
 }
@@ -20,7 +25,6 @@
 .site-footer {
     background-color: #2f6299;
 }
-
 .site-footer a {
     color: #ffffff;
 }
