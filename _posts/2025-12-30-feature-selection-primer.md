@@ -14,13 +14,13 @@ excerpt: "My shot at explaining the statistical intuition behind the most common
 - [Structure](#structure)
 - [Levels of Measurement](#levels-of-measurement)
 - [Filter Methods](#filter-methods)
-- [Pearson’s R](#pearsons-r)
-- [Kendall’s Tau](#kendalls-tau)
-- [Spearman’s Rho](#spearmans-rho)
-- [Chi-Squared $(\chi^2)$ Test](#chi-squared-chi2-test)
-- [Mutual Information](#mutual-information-mi)
-- [ANOVA F-Score](#f-score-anova)
-- [Point-Biserial](#point-biserial-correlation)
+    - [Pearson’s R](#pearsons-r)
+    - [Kendall’s Tau](#kendalls-tau)
+    - [Spearman’s Rho](#spearmans-rho)
+    - [Chi-Squared $(\chi^2)$ Test](#chi-squared-chi2-test)
+    - [Mutual Information](#mutual-information-mi)
+    - [ANOVA F-Score](#f-score-anova)
+    - [Point-Biserial $(r_{pb})$](#point-biserial-correlation)
 - [Summary](#summary)
 - [Appendix](#appendix)
 
@@ -402,7 +402,7 @@ So, the total $\chi^2$ value is: $\chi^2=9.26+1.44+2.08+0.31+9.85+1.47=24.77$
 - Range: The $\chi^2$ value is always $\ge 0$. It can never be negative, because all the terms are squared.
 - $\chi^2=0$: This would mean that $O=E$ for every single cell. The observed data perfectly matches the ‘independent’ model. This is the worst possible score for feature selection, as it means the feature is $100\%$ independent of the target.
 - $\chi^2 > 0$: The larger the $\chi^2$ value, the greater the discrepancy between your observed data and the ‘independent’ model.
-- **For Feature Selection**: We rank our features by their $\chi^2$ score. A higher $\chi^2$ score means the ‘null hypothesis’ (that they are independent) is less likely. This suggests a stronger association/dependency between the feature and target, which makes it a better feature.
+- For Feature Selection: We rank our features by their $\chi^2$ score. A higher $\chi^2$ score means the ‘null hypothesis’ (that they are independent) is less likely. This suggests a stronger association/dependency between the feature and target, which makes it a better feature.
 
 In our example, $\chi^2=24.77$ is significantly high, telling us that ‘Video Game’ is almost certainly not independent of ‘Played Game’ and is therefore a good feature to keep.
 
@@ -413,12 +413,10 @@ This is the most important part. The Chi-Squared test operates on counts within 
 - $X$: Nominal, Ordinal
 - $Y$: Nominal, Ordinal
 
-Justification:
+Nominal, because this is its primary use case. ‘Type’, ‘Country’, ‘Color’, etc. are perfect.
+Ordinal, because it works perfectly for ordinal data (’Low’, ‘Medium’, ‘High’) as well, because it just treats them as distinct categories. However, it ignores the order information.
 
-- Nominal: This is its primary use case. ‘Type’, ‘Country’, ‘Color’, etc. are perfect.
-- Ordinal: It works perfectly for ordinal data (’Low’, ‘Medium’, ‘High’) as well, because it just treats them as distinct categories. However, it ignores the order information.
-- You cannot run a $\chi^2$ test on raw continuous variables like ‘Age’ or ‘Price’ because there are no discrete categories to build a contingency table with.
-    - Except: There is a workaround: binning. To use $\chi^2$ with a continuous variable you can first bin it to convert it into an ordinal variable. For example, you could bin ‘Age’ into [’18-30’, ‘31-50’, ‘51+’]. The test is then run on these new bins, not the original data.
+You cannot run a $\chi^2$ test on raw continuous variables like ‘Age’ or ‘Price’ because there are no discrete categories to build a contingency table with. **Except:**, there is a workaround: binning. To use $\chi^2$ with a continuous variable you can first bin it to convert it into an ordinal variable. For example, you could bin ‘Age’ into [’18-30’, ‘31-50’, ‘51+’]. The test is then run on these new bins, not the original data.
 
 **Code:**
 
@@ -503,13 +501,9 @@ So, MI is very versatile, but the calculation method is slightly different depen
 - $X$: Nomina, Ordinal, Interval, Ratio
 - $Y$: Nominal, Ordinal, Interval, Ratio
 
-**Why?**
-
-- Discrete Data (Nominal/Ordinal): This is the native habitat of the MI formula. You sum up the probabilities of categories, i.e. $X=$ “color”, $Y=$ “brand”.
-- Continuous Data (Interval/Ratio): You cannot sum discrete probabilities for continuous numbers like *temperature=19.11*
-    - Option 1 (Binning): You “chop” the continuous variable into buckets/bins to make it discrete, like $0-10$, $11-20$, etc.
-    - Option 2 (Nearest Neighbors): Modern algorithms use k-Nearest Neighbors to calculate Entropy for continuous variables directly without needing to bin them manually.
-
+Discrete Data (Nominal/Ordinal) because this is the native habitat of the MI formula ~ you just sum up the probabilities of categories, i.e. $X=$ “color”, $Y=$ “brand”.
+Continuous Data (Interval/Ratio) because you cannot sum discrete probabilities for continuous numbers like *temperature=19.11*. However, just like the previous method, you can “chop” the continuous variable into buckets/bins to make it discrete, like $0-10$, $11-20$, etc.
+    
 All in all, you can throw almost any data type at Mutual Information, and it will give you a measure of shared information. This makes it one of the best (and my favorite) feature selection methods available.
 
 ```python
@@ -532,11 +526,11 @@ Let me give you an example I've worked on before: imagine you're building a mode
 
 This is where **ANOVA** (Analysis of Variance) and the **F-Score** come in. In feature selection, the F-score tells us how much a continuous feature "discriminates" between different classes. In other words, it measures how effectively that feature separates the classes by having distinct values for each class. If the "Renew" group works out for 80 minutes on average and the "Quit" group works out for 20 minutes, that feature is a goldmine for your model.
 
-**Intuition: Signal vs. Noise**
+**Intuition**
 
 To calculate the F-score, we break down the total spread of our data into parts:
-1. **Sum of Squares Between Groups (SSG)**: This measures the "signal"; that is, it calculates the variation between the group means and the overall average. If this is high, the groups are far apart.
-2. **Sum of Squares Error (SSE)**: This measures the "noise"; that is, it calculates the variation _within_ each group. If this is high, the data is messy and overlapping, even if the means are different.
+1. _Sum of Squares Between Groups (SSG)_: This measures the "signal"; that is, it calculates the variation between the group means and the overall average. If this is high, the groups are far apart.
+2. _Sum of Squares Error (SSE)_: This measures the "noise"; that is, it calculates the variation _within_ each group. If this is high, the data is messy and overlapping, even if the means are different.
 
 The F-score then is the ratio of the variation explalined by the groups to the variation that remains unexplained.
 
@@ -568,8 +562,8 @@ In the context of feature selection, if we get a high F-score, the Signal (diffe
 **Application**
 
 ANOVA F-score is applicable when:
-- **Feature (X)**: Continuous (Interval/Ratio)
-- **Target (Y)**: Categorical (Nominal/Ordinal)
+- $X$: Continuous (Interval/Ratio)
+- $Y$: Categorical (Nominal/Ordinal)
 
 The F-score starts at 0 and can go quite high. 
 
@@ -601,7 +595,7 @@ We just looked at the ANOVA F-Score, which handles “Categorical vs Numerical�
 
 While ANOVA tells you if the groups are different, Point-Biserial tells you *how* they are different (with strength and direction) relative to the binary outcome.
 
-**The Core Concept**
+**Intuition**
 
 The intuition here is similar to the F-score but simpler. We are comparing the mean of the continuous variable for Group 0 agains the mean for Group 1.
 
@@ -617,7 +611,7 @@ r_{pb}=\frac
 {\sigma_x}\sqrt{p\cdot q}
 $$
 
-Let’s break down the variables:
+Let’s look at the formula a bit closer:
 
 - $\mu_1$: The mean value of the continuous variable for all data points in Group 1.$\;$
 - $\mu_0$: The mean value of the continuous variable for all data points in Group 0.$\;$
@@ -631,29 +625,26 @@ The Logic:
 
 Here’s what might be helpful for you to understand this metric even better: Point-Biserial Correlation is mathematically equivalent to Pearson’s $r$. If you take your binary labels (e.g. “yes”, “no”) and convert them into numbers (1, 0) and then simplify the run for the standard Person’s correlation formula on that data, you’ll get exactly the same number as the Point-Biserial formula above. Two points on this:
 
-- So why does this specific formula exist? Because, before computers were powerful, calculating Person’s $r$ on thousands of rows was tedious. The $r_{pb}$ formula provided a computational shortcut because you only need the group means and the proportions, which were much faster to calculate by hand.
-- Today, we distinguish it mostly to be precise about our data types, but mathematically, it’s just Pearson.
+So why does this specific formula exist? Because, before computers were powerful, calculating Person’s $r$ on thousands of rows was tedious. The $r_{pb}$ formula provided a computational shortcut because you only need the group means and the proportions, which were much faster to calculate by hand.
+Today, we distinguish it mostly to be precise about our data types, but mathematically, it’s just Pearson.
 
 **Interpretation and Properties:**
 
-- **Range**: $-1\le r_{pb}\le1$.
-- **Positive Value**: High values of the continuous variable are associated with Category 1.
-- **Negative Value**: High values of the continuous variable are associated with Category 0.
-- **Zero**: There is no difference in the means of the two groups.
+- Range: $-1\le r_{pb}\le1$.
+- Positive Value: High values of the continuous variable are associated with Category 1.
+- Negative Value: High values of the continuous variable are associated with Category 0.
+- Zero: There is no difference in the means of the two groups.
 
 **Point-Biserial vs ANOVA:**
 
-- ANOVA checks if means differ, but the resulting F-score is always positive. It doesn’t tell you which group is higher, just that they’re different.
-- Point-Biserial gives you the sign (positive/negative), telling you the direction of the relationship.
+ANOVA checks if means differ, but the resulting F-score is always positive. It doesn’t tell you which group is higher, just that they’re different. Point-Biserial, on the other hand,gives you the sign (positive/negative), telling you the direction of the relationship.
 
 The method is strict about the categorical side. It is applicable when the features are of the following categories:
 
 - $X$: Interval, Ratio (Continuous)
 - $Y$: Binary Nominal (Must have exactly two categories)
-
-**Why?**
-
-- If $Y$ has 3+ categories (e.g. ‘red’, ‘green’, ‘blue’), you cannot assign them 0 and 1. You cannot subtract $\mu_{red}-\mu_{green}-\mu_{blue}$. The formula breaks, and you should switch to ANOVA.
+ 
+If $Y$ has 3+ categories (e.g. ‘red’, ‘green’, ‘blue’), you cannot assign them 0 and 1. You cannot subtract $\mu_{red}-\mu_{green}-\mu_{blue}$. The formula breaks, and you should switch to ANOVA.
 
 In the context of feature selection, imagine again that you are predicting whether a loan will default (Default = Yes/No) and are evaluating a feature like debt-to-income ratio. Computing the point-biserial correlation tells you whether borrowers who default tend to have higher or lower debt-to-income ratios, and how strong that separation is. A large magnitude shows the feature is informative on its own, while a value near zero shows little contribution, so you can probably get rid of it.
 
