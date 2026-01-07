@@ -15,12 +15,34 @@
 .site-title, .site-title:visited {
     color: #ffffff;
 }
-.site-nav .page-link {
-    color: #ffffff;
-    line-height: 1.5;
+/* Desktop navigation - white links on blue background */
+@media screen and (min-width: 601px) {
+    .site-nav .page-link {
+        color: #ffffff;
+        line-height: 1.5;
+    }
 }
-.site-nav .menu-icon > svg {
-    fill: #ffffff;
+
+/* Mobile menu styles - dark links on white background */
+@media screen and (max-width: 600px) {
+    .site-nav .page-link {
+        color: #111 !important;
+        background-color: #fdfdfd;
+        line-height: 1.5;
+    }
+    .site-nav .page-link:hover {
+        color: #2f6299 !important;
+    }
+    .site-nav .menu-icon > svg {
+        fill: #424242 !important;
+    }
+}
+
+/* Desktop hamburger icon */
+@media screen and (min-width: 601px) {
+    .site-nav .menu-icon > svg {
+        fill: #ffffff;
+    }
 }
 .site-footer {
     background-color: #2f6299;
