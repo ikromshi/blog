@@ -9,7 +9,7 @@ layout: default
 
   {{ content }}
 
-  {%- if site.data.projects.size > 0 -%}
+  {%- if site.data.projects and site.data.projects.size > 0 -%}
     <h2 class="post-list-heading">Projects</h2>
     <ul class="post-list project-list">
       {%- for project in site.data.projects -%}
