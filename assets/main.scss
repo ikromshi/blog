@@ -59,3 +59,82 @@
 .footer-col-wrapper {
     color: #ffffff;
 }
+
+/* Projects section on home page */
+.project-list li {
+    border-bottom: 1px solid #e8e8e8;
+    padding-bottom: 0.75em;
+    margin-bottom: 0.75em;
+}
+
+.project-description {
+    color: #666;
+    font-size: 0.95em;
+    margin: 0.2em 0 0;
+}
+
+/* Project index page */
+.project-page .project-description {
+    font-size: 1em;
+    margin-bottom: 1.5em;
+}
+
+.chapter-list {
+    list-style: none;
+    margin-left: 0;
+    counter-reset: chapter-counter;
+}
+
+.chapter-list li {
+    counter-increment: chapter-counter;
+    padding: 0.6em 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.chapter-list li::before {
+    content: counter(chapter-counter) ". ";
+    color: #aaa;
+    font-variant-numeric: tabular-nums;
+}
+
+.chapter-list a {
+    font-size: 1.05em;
+}
+
+/* Notebook post content */
+.notebook-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1em auto;
+}
+
+/* Code output blocks (plain fenced blocks, no language) */
+.notebook-content pre.highlight {
+    border-radius: 4px;
+}
+
+.notebook-content .language-plaintext pre,
+.notebook-content pre:not(.highlight) {
+    background: #f5f5f5;
+    border-left: 4px solid #ddd;
+    padding: 0.75em 1em;
+    overflow-x: auto;
+    font-size: 0.88em;
+    border-radius: 0 4px 4px 0;
+}
+
+/* Prev/next chapter navigation */
+.notebook-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2.5em;
+    padding-top: 1em;
+    border-top: 1px solid #e8e8e8;
+    font-size: 0.95em;
+}
+
+.notebook-nav .next-chapter {
+    margin-left: auto;
+    text-align: right;
+}

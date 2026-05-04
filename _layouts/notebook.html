@@ -1,0 +1,45 @@
+---
+layout: default
+---
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true
+  },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<article class="post">
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title | escape }}</h1>
+    {%- assign project_data = site.data.projects | where: "id", page.project | first -%}
+    {%- assign chapters = site.notebooks | where: "project", page.project | sort: "order" -%}
+    <p class="post-meta">
+      <a href="{{ '/projects/' | append: page.project | append: '/' | relative_url }}">
+        ← {{ project_data.title | default: page.project }}
+      </a>
+      &nbsp;·&nbsp; Chapter {{ page.order }} of {{ chapters.size }}
+    </p>
+  </header>
+
+  <div class="post-content notebook-content">
+    {{ content }}
+  </div>
+
+  <nav class="notebook-nav">
+    {%- assign prev_order = page.order | minus: 1 -%}
+    {%- assign next_order = page.order | plus: 1 -%}
+    {%- assign prev_chapter = chapters | where: "order", prev_order | first -%}
+    {%- assign next_chapter = chapters | where: "order", next_order | first -%}
+    {%- if prev_chapter -%}
+      <a class="prev-chapter" href="{{ prev_chapter.url | relative_url }}">← {{ prev_chapter.title | escape }}</a>
+    {%- endif -%}
+    {%- if next_chapter -%}
+      <a class="next-chapter" href="{{ next_chapter.url | relative_url }}">{{ next_chapter.title | escape }} →</a>
+    {%- endif -%}
+  </nav>
+</article>
