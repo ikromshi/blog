@@ -26,8 +26,7 @@ In contrast, MCP operates as a standardized interface for LLMs to discover, comm
 
 Here's a breakdown of the distinctions:
 
-<!-- <div align="center"> -->
-
+<div align="center">
 
 | Feature | Tool Function Calling | MCP |
 | :--------: | :-------- | :-------- |
@@ -37,7 +36,7 @@ Here's a breakdown of the distinctions:
 | **Discovery** | The LLM is explicitly told which tools are available within the context of a specific conversation. | Enables dynamic discovery of available tools. An MCP client can query a server to see what capabilities it offers. |
 | **Reusability** | Tool integrations are often tightly coupled with the specific application and LLM being userd. | Promotes the development of reusable, standalone "MCP servers" that can be accessed by any compliant application. |
 
-<!-- </div > -->
+</div >
 
 
 The MCP interaction flow is as follows:
